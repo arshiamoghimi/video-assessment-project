@@ -306,6 +306,8 @@ export async function joinSession(formValues) {
     });
     request.headers['Host'] = endpoint.host;
 
+    console.log('----- [MASTER] Request: ' + JSON.stringify(request));
+
     const signer = new AWS.Signers.V4(request, 'kinesisvideo', true);
     signer.addAuthorization({
         accessKeyId: formValues.accessKeyId,
@@ -321,6 +323,7 @@ export async function joinSession(formValues) {
         },
         body: request.body})
         .then((response) => {
+            console.log('[MASTER] Received response: ' + JSON.stringify(response));
             return new Promise((resolve) => response.json()
                 .then((json) => resolve({
                     status: response.status,
