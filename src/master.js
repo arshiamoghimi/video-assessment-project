@@ -323,17 +323,9 @@ export async function joinSession(formValues) {
         },
         body: request.body})
         .then((response) => {
-            console.log('[MASTER] Received response: ' + JSON.stringify(response));
-            return new Promise((resolve) => response.json()
-                .then((json) => resolve({
-                    status: response.status,
-                    ok: response.ok,
-                    json,
-                })));
-        })
-        .then(({ status, json, ok }) => {
-            if (!ok) {
-                console.log('[MASTER] Error occured while calling join session: ', json);
+            console.log('[MASTER] Received response: ' + response);
+            if (!response.ok) {
+                console.log('[MASTER] Error occured while calling join session: ', response.status);
             } else {
                 console.log('[MASTER] Successfully called join session.');
             }
